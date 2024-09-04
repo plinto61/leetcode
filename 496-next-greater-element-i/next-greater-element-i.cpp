@@ -8,17 +8,14 @@ public:
         }
         vector<int> result;
         for(unsigned int i=0; i < n1_len; i++) {
-            int found_next_greatest = false;
+            int num = -1;
             for(unsigned int j=mp[nums1[i]]+1; j < n2_len; j++) {
                 if(nums2[j] > nums1[i]) {
-                    found_next_greatest = true;
-                    result.push_back(nums2[j]);
+                    num = nums2[j];
                     break;
                 }
             }
-            if(!found_next_greatest) {
-                result.push_back(-1);
-            }
+            result.push_back(num);
         }
         return result;
     }
