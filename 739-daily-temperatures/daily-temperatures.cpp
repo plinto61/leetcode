@@ -1,27 +1,20 @@
 class Solution {
 public:
     vector<int> dailyTemperatures(vector<int>& temperatures) {
-        stack<int> track;
         int n = temperatures.size();
         vector<int> result(n, 0);
-        int i = 0;
-        while (i < n) {
-            if (i == n - 1) {
-                result[i] = 0;
-                break;
+        stack<int> st;
+        for(unsigned int i=0; i < n; i++) {
+            if(st.empty() || temperatures[st.top()] >= temperatures[i]) {
+                st.push(i);
+                continue;
             }
-            track.push(i);
-            int j = i + 1;
-            while (j < n && !track.empty()) {
-                int trackTop = track.top();
-                if (temperatures[trackTop] < temperatures[j]) {
-                    result[trackTop] = j - trackTop;
-                    track.pop();
-                } else {
-                    track.push(j++);
-                }
+            while(!st.empty() && temperatures[st.top()] < temperatures[i]) {
+                int ci = st.top();
+                result[ci] = i-ci;
+                st.pop();
             }
-            i = j;
+            st.push(i);
         }
         return result;
     }
