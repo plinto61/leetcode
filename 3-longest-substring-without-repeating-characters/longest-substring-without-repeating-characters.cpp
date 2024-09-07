@@ -9,7 +9,7 @@ public:
             return 1;
         }
 
-        int i=0, j=1, result=0;
+        int i=0, j=1, result=1;
         map<char, int> mp;
         mp = {
             {s[i], i}
@@ -21,9 +21,10 @@ public:
                     mp.erase(s[k]);
                 }
                 i = f+1;
-            }
-            if(j-i+1 > result) {
-                result = j-i+1;
+            } else {
+                if(j-i+1 > result) {
+                    result = j-i+1;
+                }
             }
             mp[s[j]] = j;
             j++;
