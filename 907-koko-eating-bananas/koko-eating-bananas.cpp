@@ -30,7 +30,6 @@ public:
         while (low <= high) {
             int k = low + (high-low)/2;
             int isKValid = getIsKValid(piles, k, h);
-            cout << "low: " << low << "\tk: " << k << "\thigh: " << high << endl;
             if(isKValid) {
                 high = k-1;
             } else {
