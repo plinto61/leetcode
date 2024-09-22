@@ -8,9 +8,8 @@ public:
                 return nums[low];
             }
             int mid = low + (high - low) / 2;
-            cout << "low: " << nums[low] << "\tmid: " << nums[mid] << "\thigh: " << nums[high] << endl;
             if (nums[mid] > nums[high]) {
-                low = mid+1;
+                low = mid + 1;
             } else {
                 high = mid;
             }
