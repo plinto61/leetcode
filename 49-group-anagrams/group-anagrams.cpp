@@ -6,7 +6,6 @@ public:
         for(string s : strs) {
             string sorted_s = s;
             sort(sorted_s.begin(), sorted_s.end());
-            cout << sorted_s << " " << s << endl;
             if(mp.find(sorted_s) != mp.end()) {
                 mp[sorted_s].push_back(s);
             } else {
