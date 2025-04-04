@@ -7,12 +7,10 @@ public:
             if (nums[mid] == target) {
                 return mid;
             }
-            cout << "left: " << left << "\tmid: " << mid << "\tright: " << right
-                 << endl;
             if (nums[mid] < target) {
-                left = mid == left ? mid + 1 : mid;
+                left = mid + 1;
             } else {
-                right = mid == right ? mid - 1 : mid;
+                right = mid -1;
             }
         }
         return -1;
