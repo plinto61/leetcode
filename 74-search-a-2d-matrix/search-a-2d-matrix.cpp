@@ -1,19 +1,22 @@
 class Solution {
 public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        int m = matrix[0].size(), n = matrix.size();
-        int low = 0, high = m*n-1;
-        while(low <= high) {
-            int mid = (high+low)/2;
-            int row = mid/m, col = mid%m;
-            if(matrix[row][col] == target) {
+        int rows = matrix.size(), cols = matrix[0].size();
+        int left = 0, right = rows * cols - 1;
+        while (left <= right) {
+            int mid = (int)(left + right) / 2;
+            int row = (int)mid / cols, col = mid % cols;
+            cout << "left: " << left << "\tmid: " << mid << "\tright: " << right << endl;
+            cout << "row: " << row << "\tcol: " << col << endl;
+
+            if (target == matrix[row][col]) {
                 return true;
             }
 
-            if(matrix[row][col] > target) {
-                high = mid-1;
+            if (target > matrix[row][col]) {
+                left = mid + 1;
             } else {
-                low = mid+1;
+                right = mid - 1;
             }
         }
         return false;
