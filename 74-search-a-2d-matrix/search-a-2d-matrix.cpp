@@ -4,10 +4,8 @@ public:
         int rows = matrix.size(), cols = matrix[0].size();
         int left = 0, right = rows * cols - 1;
         while (left <= right) {
-            int mid = (int)(left + right) / 2;
-            int row = (int)mid / cols, col = mid % cols;
-            cout << "left: " << left << "\tmid: " << mid << "\tright: " << right << endl;
-            cout << "row: " << row << "\tcol: " << col << endl;
+            int mid = (left + right) / 2;
+            int row = mid / cols, col = mid % cols;
 
             if (target == matrix[row][col]) {
                 return true;
