@@ -13,21 +13,18 @@ class Solution {
     int nodeCount = 0;
     bool breakLoop = false;
     int kthNodeVal;
-private:
-    void traverseGraph(TreeNode* node, int k) {
-        if(breakLoop || !node) return;
-        traverseGraph(node->left, k);
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        if(breakLoop) return kthNodeVal;
+        if(!root) return kthNodeVal;
+        kthSmallest(root->left, k);
         nodeCount++;
         if(nodeCount == k) {
             breakLoop = true;
-            kthNodeVal = node->val;
-            return;
+            kthNodeVal = root->val;
+            return kthNodeVal;
         }
-        traverseGraph(node->right, k);
-    }
-public:
-    int kthSmallest(TreeNode* root, int k) {
-        traverseGraph(root, k);
+        kthSmallest(root->right, k);
         return kthNodeVal;
     }
 };
