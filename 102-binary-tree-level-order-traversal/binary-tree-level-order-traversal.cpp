@@ -11,33 +11,27 @@
  * };
  */
 class Solution {
-private:
-    vector<TreeNode*> getNextLayer(vector<TreeNode*>& layer) {
-        vector<TreeNode*> nextLayer;
-        for (auto node : layer) {
-            if (node->left != nullptr) {
-                nextLayer.push_back(node->left);
-            }
-            if (node->right != nullptr) {
-                nextLayer.push_back(node->right);
-            }
-        }
-        return nextLayer;
-    }
 
 public:
     vector<vector<int>> levelOrder(TreeNode* root) {
         vector<vector<int>> result;
-        if(!root) return result;
-        vector<TreeNode*> layer = {root};
-        while (layer.size() > 0) {
+        if (!root)
+            return result;
+        queue<TreeNode*> layer;
+        layer.push(root);
+        while (!layer.empty()) {
             vector<int> vals;
-            for (auto node : layer) {
+            int queueSize = layer.size();
+            for (int i = 0; i < queueSize; i++) {
+                TreeNode* node = layer.front();
+                layer.pop();
+                if (node->left)
+                    layer.push(node->left);
+                if (node->right)
+                    layer.push(node->right);
                 vals.push_back(node->val);
             }
-            cout << endl;
             result.push_back(vals);
-            layer = getNextLayer(layer);
         }
         return result;
     }
