@@ -33,7 +33,6 @@ public:
         while (layer.size() > 0) {
             vector<int> vals;
             for (auto node : layer) {
-                cout << node->val << ", ";
                 vals.push_back(node->val);
             }
             cout << endl;
