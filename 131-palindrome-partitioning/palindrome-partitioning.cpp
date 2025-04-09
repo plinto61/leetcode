@@ -11,19 +11,23 @@ public:
         }
         return true;
     }
+    bool isSubsetValid() {
+        for (string s : subset) {
+            if(!isPalindrom(s)) return false;
+        }
+        return true;
+    }
     void tryall(int i, string s) {
         if (i == s.size()) {
-            bool isValidSubset = true;
-            for (string s : subset) {
-                isValidSubset = isValidSubset && isPalindrom(s);
-            }
-            if (isValidSubset)
+            if (isSubsetValid())
                 result.push_back(subset);
             return;
         }
         // add as new
         subset.push_back(string() + s[i]);
-        tryall(i + 1, s);
+        if(isSubsetValid()) {
+            tryall(i + 1, s);
+        }
         subset.pop_back();
 
         string last;
