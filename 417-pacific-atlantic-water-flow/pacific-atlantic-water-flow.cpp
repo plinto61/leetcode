@@ -14,16 +14,17 @@ public:
                 int newx = x + dir.first;
                 int newy = y + dir.second;
 
-                if (newx < 0 || newx >= m || newy < 0 || newy >= n) {
-                    continue;
-                }
-                if (heights[newx][newy] < heights[x][y]) {
-                    continue;
-                }
-                if (ocean[x][y] && !ocean[newx][newy]) {
+                if (
+                    newx < 0 || newx >= m || 
+                    newy < 0 || newy >= n || 
+                    heights[newx][newy] < heights[x][y]
+                ) continue;
+
+                if(ocean[x][y] && !ocean[newx][newy]) {
                     ocean[newx][newy] = true;
                     q.push(make_pair(newx, newy));
                 }
+
             }
         }
     }
@@ -43,6 +44,7 @@ public:
                 bfs(i, n - 1, heights, atlantic);
             }
         }
+        
         for (int j = 0; j < n; j++) {
             if (!pacific[0][j]) {
                 pacific[0][j] = true;
@@ -53,13 +55,6 @@ public:
                 bfs(m - 1, j, heights, atlantic);
             }
         }
-
-        // for (int i = 0; i < m; i++) {
-        //     for (int j = 0; j < n; j++) {
-        //         bfs(i, j, heights, pacific);
-        //         bfs(i, j, heights, atlantic);
-        //     }
-        // }
 
         vector<vector<int>> ans;
         for (int i = 0; i < m; i++) {
