@@ -3,7 +3,8 @@ class Solution {
     int m, n;
 
 public:
-    void bfs(int i, int j, vector<vector<int>>& heights, vector<vector<bool>>& ocean) {
+    void bfs(int i, int j, vector<vector<int>>& heights,
+             vector<vector<bool>>& ocean) {
         queue<pair<int, int>> q;
         q.push(make_pair(i, j));
         while (!q.empty()) {
@@ -19,7 +20,7 @@ public:
                 if (heights[newx][newy] < heights[x][y]) {
                     continue;
                 }
-                if(ocean[x][y] && !ocean[newx][newy]) {
+                if (ocean[x][y] && !ocean[newx][newy]) {
                     ocean[newx][newy] = true;
                     q.push(make_pair(newx, newy));
                 }
@@ -33,16 +34,24 @@ public:
         vector<vector<bool>> atlantic(m, vector<bool>(n, false));
 
         for (int i = 0; i < m; i++) {
-            pacific[i][0] = true;
-            atlantic[i][n - 1] = true;
-            bfs(i, 0, heights, pacific);
-            bfs(i, n-1, heights, atlantic);
+            if (!pacific[i][0]) {
+                pacific[i][0] = true;
+                bfs(i, 0, heights, pacific);
+            }
+            if (!atlantic[i][n - 1]) {
+                atlantic[i][n - 1] = true;
+                bfs(i, n - 1, heights, atlantic);
+            }
         }
         for (int j = 0; j < n; j++) {
-            pacific[0][j] = true;
-            atlantic[m - 1][j] = true;
-            bfs(0, j, heights, pacific);
-            bfs(m-1, j, heights, atlantic);
+            if (!pacific[0][j]) {
+                pacific[0][j] = true;
+                bfs(0, j, heights, pacific);
+            }
+            if (!atlantic[m - 1][j]) {
+                atlantic[m - 1][j] = true;
+                bfs(m - 1, j, heights, atlantic);
+            }
         }
 
         // for (int i = 0; i < m; i++) {
