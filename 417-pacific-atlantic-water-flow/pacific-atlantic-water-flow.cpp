@@ -1,11 +1,9 @@
 class Solution {
     vector<pair<int, int>> directions = {{0, -1}, {-1, 0}, {0, 1}, {1, 0}};
-    vector<vector<bool>> pacific;
-    vector<vector<bool>> atlantic;
     int m, n;
 
 public:
-    void bfs(int i, int j, vector<vector<int>>& heights) {
+    void bfs(int i, int j, vector<vector<int>>& heights, vector<vector<bool>>& ocean) {
         queue<pair<int, int>> q;
         q.push(make_pair(i, j));
         while (!q.empty()) {
@@ -21,16 +19,8 @@ public:
                 if (heights[newx][newy] < heights[x][y]) {
                     continue;
                 }
-                bool pushToQueue = false;
-                if (pacific[x][y] && !pacific[newx][newy]) {
-                    pacific[newx][newy] = true;
-                    pushToQueue = true;
-                }
-                if (atlantic[x][y] && !atlantic[newx][newy]) {
-                    atlantic[newx][newy] = true;
-                    pushToQueue = true;
-                }
-                if (pushToQueue) {
+                if(ocean[x][y] && !ocean[newx][newy]) {
+                    ocean[newx][newy] = true;
                     q.push(make_pair(newx, newy));
                 }
             }
@@ -39,8 +29,8 @@ public:
     vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
         m = heights.size();
         n = heights[0].size();
-        pacific.assign(m, vector<bool>(n, false));
-        atlantic.assign(m, vector<bool>(n, false));
+        vector<vector<bool>> pacific(m, vector<bool>(n, false));
+        vector<vector<bool>> atlantic(m, vector<bool>(n, false));
 
         for (int i = 0; i < m; i++) {
             pacific[i][0] = true;
@@ -53,7 +43,13 @@ public:
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                bfs(i, j, heights);
+                bfs(i, j, heights, pacific);
+            }
+        }
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                bfs(i, j, heights, atlantic);
             }
         }
 
