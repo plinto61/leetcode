@@ -35,23 +35,22 @@ public:
         for (int i = 0; i < m; i++) {
             pacific[i][0] = true;
             atlantic[i][n - 1] = true;
+            bfs(i, 0, heights, pacific);
+            bfs(i, n-1, heights, atlantic);
         }
         for (int j = 0; j < n; j++) {
             pacific[0][j] = true;
             atlantic[m - 1][j] = true;
+            bfs(0, j, heights, pacific);
+            bfs(m-1, j, heights, atlantic);
         }
 
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                bfs(i, j, heights, pacific);
-            }
-        }
-
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                bfs(i, j, heights, atlantic);
-            }
-        }
+        // for (int i = 0; i < m; i++) {
+        //     for (int j = 0; j < n; j++) {
+        //         bfs(i, j, heights, pacific);
+        //         bfs(i, j, heights, atlantic);
+        //     }
+        // }
 
         vector<vector<int>> ans;
         for (int i = 0; i < m; i++) {
