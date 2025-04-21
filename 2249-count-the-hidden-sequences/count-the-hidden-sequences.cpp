@@ -2,16 +2,14 @@ class Solution {
 public:
     int numberOfArrays(vector<int>& differences, int lower, int upper) {
         int n = differences.size();
-        long lowest = 0, highest = 0, curr = 0;
+        long l = 0, h = 0, curr = 0;
         for (int i = 0; i < n; i++) {
-            curr = curr + differences[i];
-            lowest = curr < lowest ? curr : lowest;
-            highest = curr > highest ? curr : highest;
+            curr += differences[i];
+            if(curr < l) l = curr;
+            if(curr > h) h = curr;
         }
-        
-        int allowedRange = upper - lower, currRange = highest - lowest;
-        if (currRange > allowedRange)
+        if (h - l > upper - lower)
             return 0;
-        return allowedRange - currRange + 1;
+        return upper - lower - h + l + 1;
     }
 };
