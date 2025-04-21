@@ -9,7 +9,7 @@ public:
 
         vector<int> state(numCourses, 0); // 0 -> unvisited, 1 -> visiting, 2 -> visited;
 
-        function<bool(int)> hasCycle = [&state, depsList, &hasCycle](int course) -> bool {
+        function<bool(int)> hasCycle = [&state, &depsList, &hasCycle](int course) -> bool {
             if(state[course] == 2) return false;
             if(state[course] == 1) return true;
 
