@@ -1,28 +1,28 @@
 class Solution {
-    vector<vector<int>> courseDependenciesMatrix;
-    int n;
-
 public:
-    bool cycleFound(int course) {
-        vector<int> dependencies = courseDependenciesMatrix[course];
-        for(int i=0; i<n; i++) {
-            if(dependencies[i] == 0) continue;
-            if(dependencies[i] == -1) return true;
-            courseDependenciesMatrix[course][i] = -1;
-            if(cycleFound(i)) return true;
-            courseDependenciesMatrix[course][i] = 0;
-        }
-        return false;
-    }
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-        n = numCourses;
-        courseDependenciesMatrix.assign(numCourses, vector<int>(numCourses, 0));
-        for (auto prerequisite : prerequisites) {
-            int course = prerequisite[0], dependency = prerequisite[1];
-            courseDependenciesMatrix[course][dependency] = 1;
+        vector<vector<int>> depsList(numCourses);
+        for(auto prereq : prerequisites) {
+            int course = prereq[0], dep = prereq[1];
+            depsList[course].push_back(dep);
         }
-        for (int course = 0; course < numCourses; course++) {
-            if(cycleFound(course)) return false;
+
+        vector<int> state(numCourses, 0); // 0 -> unvisited, 1 -> visiting, 2 -> visited;
+
+        function<bool(int)> hasCycle = [&](int course) -> bool {
+            if(state[course] == 2) return false;
+            if(state[course] == 1) return true;
+
+            state[course] = 1;
+            for(int dep : depsList[course]) {
+                if(hasCycle(dep)) return true;
+            }
+            state[course] = 2;
+            return false;
+        };
+
+        for(int course = 0; course < numCourses; course++) {
+            if(state[course] == 0 && hasCycle(course)) return false;
         }
         return true;
     }
