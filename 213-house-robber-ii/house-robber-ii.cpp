@@ -19,18 +19,6 @@ public:
         first__robbed[n-1] = first__robbed[n-2];
         second_robbed[n-1] = max(nums[n-1] + second_robbed[n-3], second_robbed[n-2]);
 
-        cout << "first__robbed: [";
-        for(int i=0;i<n-1;i++) {
-            cout << first__robbed[i] << ",\t";
-        }
-        cout << first__robbed[n-1] << "]" << endl;
-
-        cout << "second_robbed: [";
-        for(int i=0;i<n-1;i++) {
-            cout << second_robbed[i] << ",\t";
-        }
-        cout << second_robbed[n-1] << "]" << endl;
-
         return max(first__robbed[n-1], second_robbed[n-1]);
     }
 };
