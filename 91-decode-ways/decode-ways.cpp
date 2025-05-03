@@ -16,7 +16,6 @@ public:
         return false;
     }
     int getWays(string s) {
-        cout << s << endl;
         if (codeHash[s])
             return codeHash[s];
         if (s[0] == '0')
