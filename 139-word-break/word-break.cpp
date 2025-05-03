@@ -3,7 +3,7 @@ class Solution {
 public:
     
     bool wordBreak(string s, vector<string>& wordDict) {
-        cout << s << endl;
+        // cout << s << endl;
         if(s.size() == 0) return true;
         if(table.find(s) != table.end()) return table[s];
         bool ans = false;
