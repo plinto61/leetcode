@@ -1,19 +1,17 @@
 class Solution {
-    vector<vector<int>> hash;
 
 public:
-    bool itp(vector<int>& nums, int t, int i) {
+    bool itp(vector<int>& nums, int t, int i, vector<vector<int>>& hash) {
         if (t == 0)
             return true;
 
-        if (i == nums.size())
+        if (i >= nums.size() || t < 0)
             return false;
 
         if (hash[t][i] == -1) {
-            hash[t][i] = nums[i] > t ? itp(nums, t, i + 1)
-                                     : itp(nums, t, i + 1) ||
-                                           itp(nums, t - nums[i], i + 1);
+            hash[t][i] = itp(nums, t, i + 1, hash) || itp(nums, t - nums[i], i + 1, hash);
         }
+
         return hash[t][i];
     }
 
@@ -28,8 +26,8 @@ public:
 
         int target = total / 2;
 
-        hash.assign(target+1, vector<int>(nums.size(), -1));
+        vector<vector<int>> hash(target + 1, vector<int>(nums.size(), -1));
 
-        return itp(nums, target, 0);
+        return itp(nums, target, 0, hash);
     }
 };
